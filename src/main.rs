@@ -43,6 +43,7 @@ async fn main() -> Result<(), GooseError> {
     config.host = host.to_string();
     config.no_reset_metrics = true;
     config.report_file = format!("reports/report-{}.html", current_timestamp);
+    config.run_time = String::from("60s");
 
     GooseAttack::initialize_with_config(config)?
         .register_scenario(
