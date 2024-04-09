@@ -1,23 +1,8 @@
+mod check_response;
+use check_response::CheckResponse;
+
 use ::goose::{config::*, goose::*, *};
-use async_trait::async_trait;
-use goose_eggs::{validate_page, Validate};
 use std::{env, time::*};
-
-#[async_trait]
-trait CheckResponse {
-    async fn check_ok(self, user: &mut GooseUser, status_code: u16) -> TransactionResult;
-}
-
-#[async_trait]
-impl CheckResponse for GooseResponse {
-    async fn check_ok(self, user: &mut GooseUser, status_code: u16) -> TransactionResult {
-        let validate = Validate::builder().status(status_code).build();
-
-        validate_page(user, self, &validate).await?;
-
-        Ok(())
-    }
-}
 
 async fn challenges_test(user: &mut GooseUser) -> TransactionResult {
     user.post("/api/v1/Challenges", "")
