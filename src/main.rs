@@ -1,4 +1,5 @@
 mod check_response;
+mod responses;
 use check_response::CheckResponse;
 
 use ::goose::{config::*, goose::*, *};
